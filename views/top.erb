@@ -1,0 +1,13 @@
+<h1>メモアプリ</h1>
+<ul>
+  <% if @memo_data.nil? %>
+  <%= nil %>
+  <% else %>
+  <% @memo_data.each do |m| %>
+  <li>
+  <a href="/memos/<%= m[:id] %>"><%= m[:title] %></a>
+  </li>
+  <% end %>
+  <% end %>
+</ul>
+<p><a href="/memos/new">追加</a></p>
