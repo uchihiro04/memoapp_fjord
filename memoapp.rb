@@ -47,6 +47,13 @@ patch "/memos/:id" do
   redirect "/memos/#{params[:id]}"
 end
 
+delete "/memos/:id" do
+  memo_data = JSON.parse(File.read("db/memo.json"), symbolize_names: true)
+  memos =  memo_data.delete_if { |memo| memo[:id] == params[:id] }
+  File.open("db/memo.json", "w") { |file| JSON.dump(memos, file) }
+  redirect "/memos"
+end
+
 get "/memos/:id" do
   memo_data = JSON.parse(File.read("db/memo.json"), symbolize_names: true).find { |file| file[:id] == params[:id] }
   @id = memo_data[:id]
