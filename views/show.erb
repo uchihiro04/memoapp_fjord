@@ -1,11 +1,11 @@
 <h1>メモアプリ</h1>
 <h2>タイトル</h2>
 <p>
-  <%= @title %>
+  <%= h(@title) %>
 </p>
 <h2>内容</h2>
 <p>
-  <%= @contents %>
+  <%= h(@contents) %>
 </p>
 <a href="/memos/<%= @id %>/edit">編集</a>
 <form action="/memos/<%= @id %>" method="POST">
