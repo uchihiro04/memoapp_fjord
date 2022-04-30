@@ -50,6 +50,7 @@ end
 
 get '/memos/:id/edit' do
   memo_data = convert_json.find { |file| file[:id] == params[:id] }
+  halt 404 if memo_data.nil?
   @id = memo_data[:id]
   @title = memo_data[:title]
   @contents = memo_data[:contents]
@@ -75,8 +76,13 @@ end
 
 get '/memos/:id' do
   memo_data = convert_json.find { |file| file[:id] == params[:id] }
+  halt 404 if memo_data.nil?
   @id = memo_data[:id]
   @title = h(memo_data[:title])
   @contents = h(memo_data[:contents])
   erb :show
+end
+
+not_found do
+  erb :not_found
 end
