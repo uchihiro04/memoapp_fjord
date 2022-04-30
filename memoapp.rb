@@ -6,6 +6,7 @@ require 'sinatra/reloader'
 require 'json'
 require 'securerandom'
 require 'erb'
+require_relative './memo'
 include ERB::Util
 
 helpers do
@@ -27,20 +28,12 @@ get '/' do
 end
 
 get '/memos' do
-  File.open('db/memo.json', 'w') unless FileTest.exist?('db/memo.json')
-  @memo_data = File.read('db/memo.json', 1).nil? ? nil : convert_json
+  @memo_data = Memo.all
   erb :top
 end
 
 post '/memos' do
-  memos = File.read('db/memo.json', 1).nil? ? [] : convert_json
-  memo = {
-    title: params[:title],
-    contents: params[:contents],
-    id: SecureRandom.uuid
-  }
-  memos << memo
-  dump_memo(memos)
+  Memo.create(title: params[:title], contents: params[:contents])
   redirect '/memos'
 end
 
