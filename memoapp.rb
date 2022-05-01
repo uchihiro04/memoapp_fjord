@@ -7,19 +7,14 @@ require 'json'
 require 'securerandom'
 require 'erb'
 require_relative './memo'
-include ERB::Util
 
 helpers do
-  def convert_json
-    JSON.parse(read_memo, symbolize_names: true)
+  def h(text)
+    Rack::Utils.escape_html(text)
   end
 
-  def read_memo
-    File.read('db/memo.json')
-  end
-
-  def dump_memo(memos)
-    File.open('db/memo.json', 'w') { |file| JSON.dump(memos, file) }
+  def determine_not_found(memo_data)
+    halt 404 if memo_data.nil?
   end
 end
 
@@ -42,8 +37,8 @@ get '/memos/new' do
 end
 
 get '/memos/:id/edit' do
-  memo_data = convert_json.find { |file| file[:id] == params[:id] }
-  halt 404 if memo_data.nil?
+  memo_data = Memo.find(id: params[:id])
+  determine_not_found(memo_data)
   @id = memo_data[:id]
   @title = memo_data[:title]
   @contents = memo_data[:contents]
@@ -51,28 +46,21 @@ get '/memos/:id/edit' do
 end
 
 patch '/memos/:id' do
-  memos = convert_json.each do |memo|
-    if memo[:id] == params[:id]
-      memo[:title] = params[:title]
-      memo[:contents] = params[:contents]
-    end
-  end
-  dump_memo(memos)
+  Memo.new.update(id: params[:id], title: params[:title], contents: params[:contents])
   redirect "/memos/#{params[:id]}"
 end
 
 delete '/memos/:id' do
-  memos =  convert_json.delete_if { |memo| memo[:id] == params[:id] }
-  dump_memo(memos)
+  Memo.new.delete(id: params[:id], title: params[:title], contents: params[:contents])
   redirect '/memos'
 end
 
 get '/memos/:id' do
-  memo_data = convert_json.find { |file| file[:id] == params[:id] }
-  halt 404 if memo_data.nil?
+  memo_data = Memo.find(id: params[:id])
+  determine_not_found(memo_data)
   @id = memo_data[:id]
-  @title = h(memo_data[:title])
-  @contents = h(memo_data[:contents])
+  @title = memo_data[:title]
+  @contents = memo_data[:contents]
   erb :show
 end
 

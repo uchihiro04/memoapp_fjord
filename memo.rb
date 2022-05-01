@@ -1,12 +1,9 @@
 class Memo
   JSON_PATH = "db/memo.json"
 
-  def initialize
-  end
-
   def self.all
-    File.open('db/memo.json', 'w') unless FileTest.exist?('db/memo.json')
-    File.read('db/memo.json', 1).nil? ? [] : convert_json
+    File.open(JSON_PATH, 'w') unless FileTest.exist?(JSON_PATH)
+    read.nil? ? [] : convert_json
   end
 
   def self.create(memo_params)
@@ -16,36 +13,35 @@ class Memo
     write(memos)
   end
 
-  def update
+  def update(memo_params)
+    memos = Memo.convert_json.each do |memo|
+      if memo[:id] == memo_params[:id]
+        memo[:title] = memo_params[:title]
+        memo[:contents] = memo_params[:contents]
+      end
+    end
+    Memo.write(memos)
   end
 
-  def delete
+  def delete(memo_params)
+    memos =  Memo.convert_json.delete_if { |memo| memo[:id] == memo_params[:id] }
+    Memo.write(memos)
   end
 
-  def self.find(id)
-  end
-
-  private
   def self.read
-    File.read('db/memo.json')
-  end
-
-  def self.write(memos)
-    File.open('db/memo.json', 'w') { |file| JSON.dump(memos, file) }
+    File.read(JSON_PATH)
   end
 
   def self.convert_json
     JSON.parse(read, symbolize_names: true)
   end
 
-  private_class_method :read, :convert_json, :write
+  def self.write(memos)
+    File.open(JSON_PATH, 'w') { |file| JSON.dump(memos, file) }
+  end
 
+  def self.find(id)
+    convert_json.find { |file| file[:id] == id[:id] }
+  end
 end
 
-=begin
-クラスについて
-・関係する処理を全部洗い出す
-・メソッド名やレベルが合っているか確認
-・パブリック/プライベートメソッドの確認
-・インスタンスに対して呼びたいメソッド/インスタンスはないが呼ぶことでインスタンスを得たいメソッド（後者がクラスメソッド）
-=end
