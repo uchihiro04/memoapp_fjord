@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class Memo
-  JSON_PATH = "db/memo.json"
+  JSON_PATH = 'db/memo.json'
 
   def self.all
     File.open(JSON_PATH, 'w') unless FileTest.exist?(JSON_PATH)
@@ -24,7 +26,7 @@ class Memo
   end
 
   def delete(memo_params)
-    memos =  Memo.convert_json.delete_if { |memo| memo[:id] == memo_params[:id] }
+    memos = Memo.convert_json.delete_if { |memo| memo[:id] == memo_params[:id] }
     Memo.write(memos)
   end
 
@@ -44,4 +46,3 @@ class Memo
     convert_json.find { |file| file[:id] == id[:id] }
   end
 end
-
