@@ -1,15 +1,25 @@
-<h1>メモアプリ</h1>
-<h2>タイトル</h2>
-<p>
-  <%= h(@title) %>
-</p>
-<h2>内容</h2>
-<p>
-  <%= h(@contents) %>
-</p>
-<a href="/memos/<%= @id %>/edit">編集</a>
-<form action="/memos/<%= @id %>" method="POST">
-  <input type="hidden" id="_method" name="_method" value="DELETE">
-  <input type="submit" value="削除">
-</form>
-<a href="/memos">TOPへ戻る</a>
+<h1 class="memo-heading">メモ　詳細画面</h1>
+<div class="memo-detail-container">
+  <h2 class="memo-label">タイトル</h2>
+  <p>
+    <div class="memo-text-detail"><%= h(@title) %></div>
+  </p>
+  <h2 class="memo-label">内容</h2>
+  <p>
+    <div class="memo-text-detail"><%= h(@contents) %></div>
+  </p>
+</div>
+<div class="memo-button-container">
+  <div class="button-container">
+    <div class="button-items"><a class="button-item" href="/memos/<%= @id %>/edit">編集</a></div>
+    <div class="button-items">
+      <form action="/memos/<%= @id %>" method="POST">
+        <input type="hidden" id="_method" name="_method" value="DELETE">
+        <input class="button-item" type="submit" value="削除">
+      </form>
+    </div>
+  </div>
+  <div class="button-container">
+    <a class="button-second-row-item" href="/memos">戻る</a>
+  </div>
+</div>
