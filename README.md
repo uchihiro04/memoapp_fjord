@@ -11,14 +11,14 @@ Sinatraを使用してメモアプリを起動することができます。
 * 保存したメモを編集・削除することができます。
 
 # 利用方法
-1. 任意の作業ディレクトリにて ```git clone``` してください。
+1. 任意の作業ディレクトリにて `git clone` してください。
 ```
 $ git clone https://github.com/自分のアカウント名/memoapp_fjord.git
 ```
-1. ```cd memoapp_fjord``` でカレントディレクトリを変更してください。
-1. ```bundle install```を実行してください。
-1. ```bundle exec ruby app.rb```を実行して、アプリケーションを実行してください。
-1. ブラウザにて```http://localhost:4567```にアクセスしてください。
+1. `cd memoapp_fjord` でカレントディレクトリを変更してください。
+1. `bundle install`を実行してください。
+1. `bundle exec ruby app.rb`を実行して、アプリケーションを実行してください。
+1. ブラウザにて`http://localhost:4567`にアクセスしてください。
 
 # スクリーンショット
 ![Screen Shot1](https://user-images.githubusercontent.com/77523896/166419799-17b0a7ba-076d-4369-a4d6-a3d1c1b613cf.png)
