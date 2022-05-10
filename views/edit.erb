@@ -4,11 +4,11 @@
     <input type="hidden" id="_method" name="_method" value="PATCH">
     <h2 class="memo-label">タイトル</h2>
     <div class="form-items-item">
-      <input required type="text" name="title" value="<%= @title %>">
+      <input required type="text" name="title" value="<%= h(@title) %>">
     </div>
     <h2 class="memo-label">内容</h2>
     <div class="form-items-item">
-      <textarea name="contents"><%= @contents %></textarea>
+      <textarea name="contents"><%= h(@contents) %></textarea>
     </div>
 </div>
 <div class="memo-button-container">
