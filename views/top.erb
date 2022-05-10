@@ -1,11 +1,11 @@
 <h1 class="memo-heading">メモアプリ</h1>
 <ul class="title-list">
-  <% if @memo_data.nil? %>
-  <%= nil %>
+  <% if @memo_data.empty? %>
+  <p>データがありません</p>
   <% else %>
-  <% @memo_data.each do |m| %>
+  <% @memo_data.each do |memo| %>
   <li>
-    <a class="title-list-item" href="/memos/<%= m[:id] %>"><%= h(m[:title]) %></a>
+    <a class="title-list-item" href="/memos/<%= memo[:id] %>"><%= h(memo[:title]) %></a>
   </li>
   <% end %>
   <% end %>
