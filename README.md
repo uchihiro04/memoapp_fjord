@@ -17,7 +17,7 @@ $ git clone https://github.com/自分のアカウント名/memoapp_fjord.git
 ```
 1. `cd memoapp_fjord` でカレントディレクトリを変更してください。
 1. `bundle install`を実行してください。
-1. `bundle exec ruby app.rb`を実行して、アプリケーションを実行してください。
+1. `bundle exec ruby app.rb`を実行し、アプリケーションを起動してください。
 1. ブラウザにて`http://localhost:4567`にアクセスしてください。
 
 # スクリーンショット
