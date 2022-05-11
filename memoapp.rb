@@ -13,8 +13,8 @@ helpers do
     Rack::Utils.escape_html(text)
   end
 
-  def determine_not_found(memo_data)
-    halt 404 if memo_data.nil?
+  def determine_not_found
+    halt 404 if @memo_data.nil?
   end
 end
 
@@ -37,11 +37,8 @@ get '/memos/new' do
 end
 
 get '/memos/:id/edit' do
-  memo_data = Memo.find(id: params[:id])
-  determine_not_found(memo_data)
-  @id = memo_data[:id]
-  @title = memo_data[:title]
-  @contents = memo_data[:contents]
+  @memo_data = Memo.find(id: params[:id])
+  determine_not_found
   erb :edit
 end
 
@@ -56,11 +53,8 @@ delete '/memos/:id' do
 end
 
 get '/memos/:id' do
-  memo_data = Memo.find(id: params[:id])
-  determine_not_found(memo_data)
-  @id = memo_data[:id]
-  @title = memo_data[:title]
-  @contents = memo_data[:contents]
+  @memo_data = Memo.find(id: params[:id])
+  determine_not_found
   erb :show
 end
 
