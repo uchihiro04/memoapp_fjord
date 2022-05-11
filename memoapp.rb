@@ -28,7 +28,7 @@ get '/memos' do
 end
 
 post '/memos' do
-  Memo.create(title: params[:title], contents: params[:contents])
+  Memo.create(title: params[:title], content: params[:content])
   redirect '/memos'
 end
 
@@ -43,12 +43,12 @@ get '/memos/:id/edit' do
 end
 
 patch '/memos/:id' do
-  Memo.new.update(id: params[:id], title: params[:title], contents: params[:contents])
+  Memo.update(id: params[:id], title: params[:title], content: params[:content])
   redirect "/memos/#{params[:id]}"
 end
 
 delete '/memos/:id' do
-  Memo.new.delete(id: params[:id], title: params[:title], contents: params[:contents])
+  Memo.delete(id: params[:id])
   redirect '/memos'
 end
 
