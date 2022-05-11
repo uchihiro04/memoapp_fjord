@@ -5,7 +5,7 @@ class Memo
 
   def self.all
     File.open(JSON_PATH, 'w') unless FileTest.exist?(JSON_PATH)
-    read.nil? ? [] : convert_json
+    read.empty? ? [] : convert_json
   end
 
   def self.create(memo_params)
@@ -15,8 +15,9 @@ class Memo
     write(memos)
   end
 
-  def update(memo_params)
-    memos = Memo.convert_json.each do |memo|
+  def self.update(memo_params)
+    memos = all
+    memos.each do |memo|
       if memo[:id] == memo_params[:id]
         memo[:title] = memo_params[:title]
         memo[:contents] = memo_params[:contents]
@@ -25,8 +26,9 @@ class Memo
     Memo.write(memos)
   end
 
-  def delete(memo_params)
-    memos = Memo.convert_json.delete_if { |memo| memo[:id] == memo_params[:id] }
+  def self.delete(memo_params)
+    memos = all
+    memos.delete_if { |memo| memo[:id] == memo_params[:id] }
     Memo.write(memos)
   end
 
