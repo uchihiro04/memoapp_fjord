@@ -149,6 +149,11 @@ body {
 }
 
 /* TOPページのリスト */
+.nomemo_list {
+  list-style: none;
+  text-align: center;
+}
+
 .title-list {
   font-size: 2rem;
   margin: 4rem auto;
