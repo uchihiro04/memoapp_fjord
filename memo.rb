@@ -4,7 +4,7 @@ class Memo
   JSON_PATH = 'db/memo.json'
   class << self
     def all
-      File.open(JSON_PATH, 'w') {|file| file << [] } unless FileTest.exist?(JSON_PATH)
+      File.open(JSON_PATH, 'w') { |file| file << [] } unless FileTest.exist?(JSON_PATH)
       JSON.parse(File.read(JSON_PATH), symbolize_names: true)
     end
 
