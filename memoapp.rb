@@ -14,7 +14,7 @@ helpers do
   end
 
   def determine_not_found
-    halt 404 if @memo_data.nil?
+    halt 404 if @memo.nil?
   end
 end
 
@@ -23,7 +23,7 @@ get '/' do
 end
 
 get '/memos' do
-  @memo_data = Memo.all
+  @memos = Memo.all
   erb :top
 end
 
@@ -37,7 +37,7 @@ get '/memos/new' do
 end
 
 get '/memos/:id/edit' do
-  @memo_data = Memo.find(id: params[:id])
+  @memo = Memo.find(id: params[:id])
   determine_not_found
   erb :edit
 end
@@ -53,7 +53,7 @@ delete '/memos/:id' do
 end
 
 get '/memos/:id' do
-  @memo_data = Memo.find(id: params[:id])
+  @memo = Memo.find(id: params[:id])
   determine_not_found
   erb :show
 end
