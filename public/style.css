@@ -228,6 +228,7 @@ body {
 }
 
 .memo-label {
+  display: block;
   font-size: 2rem;
   font-weight: bold;
   padding-bottom: 1rem;

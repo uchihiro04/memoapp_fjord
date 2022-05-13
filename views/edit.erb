@@ -2,11 +2,11 @@
 <div class="memo-detail-container">
   <form action="/memos/<%= @memo[:id] %>" method="POST">
     <input type="hidden" id="_method" name="_method" value="PATCH">
-    <h2 class="memo-label">タイトル</h2>
+    <label class="memo-label">タイトル</label>
     <div class="form-items-item">
       <input required type="text" name="title" value="<%= h(@memo[:title]) %>">
     </div>
-    <h2 class="memo-label">内容</h2>
+    <label class="memo-label">内容</label>
     <div class="form-items-item">
       <textarea name="content"><%= h(@memo[:content]) %></textarea>
     </div>
