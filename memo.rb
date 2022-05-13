@@ -23,13 +23,13 @@ class Memo
           memo[:content] = memo_params[:content]
         end
       end
-      Memo.write(memos)
+      write(memos)
     end
 
     def delete(memo_params)
       memos = all
       memos.delete_if { |memo| memo[:id] == memo_params[:id] }
-      Memo.write(memos)
+      write(memos)
     end
 
     def write(memos)
