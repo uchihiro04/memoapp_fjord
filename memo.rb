@@ -8,27 +8,24 @@ class Memo
       JSON.parse(File.read(JSON_PATH), symbolize_names: true)
     end
 
-    def create(memo_params)
+    def create(params)
       memos = all
-      memo_params[:id] = SecureRandom.uuid
-      memos << memo_params
+      params[:id] = SecureRandom.uuid
+      memos << params
       write(memos)
     end
 
-    def update(memo_params)
+    def update(params)
       memos = all
-      memos.each do |memo|
-        if memo[:id] == memo_params[:id]
-          memo[:title] = memo_params[:title]
-          memo[:content] = memo_params[:content]
-        end
-      end
+      target_memo = memos.find { |memo| memo[:id] == params[:id] }
+      target_memo[:title] = params[:title]
+      target_memo[:content] = params[:content]
       write(memos)
     end
 
-    def delete(memo_params)
+    def delete(params)
       memos = all
-      memos.delete_if { |memo| memo[:id] == memo_params[:id] }
+      memos.delete_if { |memo| memo[:id] == params[:id] }
       write(memos)
     end
 
@@ -36,8 +33,8 @@ class Memo
       File.open(JSON_PATH, 'w') { |file| JSON.dump(memos, file) }
     end
 
-    def find(id)
-      all.find { |file| file[:id] == id[:id] }
+    def find(params)
+      all.find { |file| file[:id] == params[:id] }
     end
   end
 end

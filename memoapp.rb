@@ -28,7 +28,7 @@ get '/memos' do
 end
 
 post '/memos' do
-  Memo.create(title: params[:title], content: params[:content])
+  Memo.create(params)
   redirect '/memos'
 end
 
@@ -37,23 +37,23 @@ get '/memos/new' do
 end
 
 get '/memos/:id/edit' do
-  @memo = Memo.find(id: params[:id])
+  @memo = Memo.find(params)
   determine_not_found
   erb :edit
 end
 
 patch '/memos/:id' do
-  Memo.update(id: params[:id], title: params[:title], content: params[:content])
+  Memo.update(params)
   redirect "/memos/#{params[:id]}"
 end
 
 delete '/memos/:id' do
-  Memo.delete(id: params[:id])
+  Memo.delete(params)
   redirect '/memos'
 end
 
 get '/memos/:id' do
-  @memo = Memo.find(id: params[:id])
+  @memo = Memo.find(params)
   determine_not_found
   erb :show
 end
