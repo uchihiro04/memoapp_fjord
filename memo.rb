@@ -23,9 +23,9 @@ class Memo
       write(memos)
     end
 
-    def delete(params)
+    def delete(id)
       memos = all
-      memos.delete_if { |memo| memo[:id] == params[:id] }
+      memos.delete_if { |memo| memo[:id] == id[:id] }
       write(memos)
     end
 
@@ -33,8 +33,8 @@ class Memo
       File.open(JSON_PATH, 'w') { |file| JSON.dump(memos, file) }
     end
 
-    def find(params)
-      all.find { |file| file[:id] == params[:id] }
+    def find(id)
+      all.find { |file| file[:id] == id[:id] }
     end
   end
 end
