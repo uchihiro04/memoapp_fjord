@@ -37,7 +37,7 @@ get '/memos/new' do
 end
 
 get '/memos/:id/edit' do
-  @memo = Memo.find(params)
+  @memo = Memo.find(params[:id])
   determine_not_found
   erb :edit
 end
@@ -48,12 +48,12 @@ patch '/memos/:id' do
 end
 
 delete '/memos/:id' do
-  Memo.delete(params)
+  Memo.delete(params[:id])
   redirect '/memos'
 end
 
 get '/memos/:id' do
-  @memo = Memo.find(params)
+  @memo = Memo.find(params[:id])
   determine_not_found
   erb :show
 end

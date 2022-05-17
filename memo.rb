@@ -25,7 +25,7 @@ class Memo
 
     def delete(id)
       memos = all
-      memos.delete_if { |memo| memo[:id] == id[:id] }
+      memos.delete_if { |memo| memo[:id] == id }
       write(memos)
     end
 
@@ -34,7 +34,7 @@ class Memo
     end
 
     def find(id)
-      all.find { |file| file[:id] == id[:id] }
+      all.find { |file| file[:id] == id }
     end
   end
 end
