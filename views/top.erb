@@ -1,0 +1,19 @@
+<h1 class="memo-heading">メモアプリ</h1>
+<ul class="title-list">
+  <% if @memos.empty? %>
+  <li class="nomemo_list">メモがありません</li>
+  <% else %>
+  <% @memos.each do |memo| %>
+  <li>
+    <a class="title-list-item" href="/memos/<%= memo[:id] %>"><%= h(memo[:title]) %></a>
+  </li>
+  <% end %>
+  <% end %>
+</ul>
+<div class="memo-button-container">
+  <div class="button-container">
+    <div class="button-items">
+      <a class="button-item" href="/memos/new">追加</a>
+    </div>
+  </div>
+</div>

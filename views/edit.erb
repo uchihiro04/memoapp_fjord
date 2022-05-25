@@ -1,0 +1,24 @@
+<h1 class="memo-heading">メモ　編集画面</h1>
+<div class="memo-detail-container">
+  <form action="/memos/<%= @memo[:id] %>" method="POST">
+    <input type="hidden" id="_method" name="_method" value="PATCH">
+    <label class="memo-label" for="title">タイトル</label>
+    <div class="form-items-item">
+      <input required type="text" name="title" id="title" value="<%= h(@memo[:title]) %>">
+    </div>
+    <label class="memo-label" for="content">内容</label>
+    <div class="form-items-item">
+      <textarea name="content" id="content"><%= h(@memo[:content]) %></textarea>
+    </div>
+</div>
+<div class="memo-button-container">
+  <div class="button-container">
+    <div class="button-items">
+      <input class="button-item" type="submit" value="変更">
+    </div>
+    <div class="button-items">
+      <a class="button-item" href="/memos/<%= @memo[:id] %>">戻る</a>
+    </div>
+    </form>
+  </div>
+</div>
