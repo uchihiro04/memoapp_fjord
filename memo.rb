@@ -4,37 +4,31 @@ class Memo
   JSON_PATH = 'db/memo.json'
   class << self
     def all
-      File.open(JSON_PATH, 'w') { |file| file << [] } unless FileTest.exist?(JSON_PATH)
-      JSON.parse(File.read(JSON_PATH), symbolize_names: true)
+      memos = []
+      conn = PG.connect( dbname: 'memoapp' )
+      conn.exec( "SELECT * FROM memos" ) do |result|
+        result.each { |row|  memos << row }
+      end
+      memos
     end
 
     def create(params)
-      memos = all
-      params[:id] = SecureRandom.uuid
-      memos << params
-      write(memos)
+      conn = PG.connect( dbname: 'memoapp' )
+      conn.exec( "INSERT INTO memos (id, title, content) VALUES ('#{SecureRandom.uuid}', '#{params[:title]}', '#{params[:content]}')" )
     end
 
     def update(params)
-      memos = all
-      target_memo = memos.find { |memo| memo[:id] == params[:id] }
-      target_memo[:title] = params[:title]
-      target_memo[:content] = params[:content]
-      write(memos)
+      conn = PG.connect( dbname: 'memoapp' )
+      conn.exec( "UPDATE memos SET title = '#{params[:title]}', content = '#{params[:content]}' WHERE id = '#{params[:id]}'" )
     end
 
     def delete(id)
-      memos = all
-      memos.delete_if { |memo| memo[:id] == id }
-      write(memos)
-    end
-
-    def write(memos)
-      File.open(JSON_PATH, 'w') { |file| JSON.dump(memos, file) }
+      conn = PG.connect( dbname: 'memoapp' )
+      conn.exec( "DELETE FROM memos WHERE id = '#{id}'" )
     end
 
     def find(id)
-      all.find { |file| file[:id] == id }
+      all.find { |file| file['id'] == id }
     end
   end
 end
