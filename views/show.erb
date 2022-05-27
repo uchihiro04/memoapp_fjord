@@ -2,22 +2,22 @@
 <div class="memo-detail-container">
   <p class="memo-label">タイトル</p>
   <p>
-    <div class="memo-text-detail"><%= h(@memo[:title]) %></div>
+    <div class="memo-text-detail"><%= h(@memo['title']) %></div>
   </p>
   <p class="memo-label">内容</p>
   <p>
     <div class="memo-text-detail">
-      <pre><%= h(@memo[:content]) %></pre>
+      <pre><%= h(@memo['content']) %></pre>
     </div>
   </p>
 </div>
 <div class="memo-button-container">
   <div class="button-container">
     <div class="button-items">
-      <a class="button-item" href="/memos/<%= @memo[:id] %>/edit">編集</a>
+      <a class="button-item" href="/memos/<%= @memo['id'] %>/edit">編集</a>
     </div>
     <div class="button-items">
-      <form action="/memos/<%= @memo[:id] %>" method="POST">
+      <form action="/memos/<%= @memo['id'] %>" method="POST">
         <input type="hidden" id="_method" name="_method" value="DELETE">
         <input class="button-item" type="submit" value="削除">
       </form>
