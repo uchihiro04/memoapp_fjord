@@ -3,11 +3,7 @@
 class Memo
   class << self
     def all
-      memos = []
-      connect_db.exec('SELECT * FROM memos ORDER BY created_at') do |result|
-        result.each { |row| memos << row }
-      end
-      memos
+      connect_db.exec('SELECT * FROM memos ORDER BY created_at').to_a
     end
 
     def connect_db
