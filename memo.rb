@@ -1,40 +1,29 @@
 # frozen_string_literal: true
 
 class Memo
-  JSON_PATH = 'db/memo.json'
   class << self
     def all
-      File.open(JSON_PATH, 'w') { |file| file << [] } unless FileTest.exist?(JSON_PATH)
-      JSON.parse(File.read(JSON_PATH), symbolize_names: true)
+      connect_db.exec('SELECT * FROM memos ORDER BY created_at').to_a
+    end
+
+    def connect_db
+      @connect_db ||= PG.connect(dbname: 'memoapp')
     end
 
     def create(params)
-      memos = all
-      params[:id] = SecureRandom.uuid
-      memos << params
-      write(memos)
+      connect_db.exec_params('INSERT INTO memos (title, content) VALUES ($1, $2)', [params[:title], params[:content]])
     end
 
     def update(params)
-      memos = all
-      target_memo = memos.find { |memo| memo[:id] == params[:id] }
-      target_memo[:title] = params[:title]
-      target_memo[:content] = params[:content]
-      write(memos)
+      connect_db.exec_params('UPDATE memos SET title = $1, content = $2 WHERE id = $3', [params[:title], params[:content], params[:id]])
     end
 
     def delete(id)
-      memos = all
-      memos.delete_if { |memo| memo[:id] == id }
-      write(memos)
-    end
-
-    def write(memos)
-      File.open(JSON_PATH, 'w') { |file| JSON.dump(memos, file) }
+      connect_db.exec_params('DELETE FROM memos WHERE id = $1', [id])
     end
 
     def find(id)
-      all.find { |file| file[:id] == id }
+      all.find { |file| file['id'] == id }
     end
   end
 end

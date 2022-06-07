@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-require 'sinatra'
-require 'webrick'
-require 'sinatra/reloader'
-require 'json'
-require 'securerandom'
 require 'erb'
+require 'pg'
+require 'securerandom'
+require 'sinatra'
+require 'sinatra/reloader'
+require 'webrick'
 require_relative './memo'
 
 helpers do
